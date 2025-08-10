@@ -1,3 +1,4 @@
+make a .env file with the following:
 
 DISCORD_TOKEN=
 
