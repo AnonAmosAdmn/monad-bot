@@ -1,0 +1,20 @@
+{
+  "name": "monad-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@discordjs/rest": "^2.5.1",
+    "discord-api-types": "^0.38.18",
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1",
+    "ethers": "^6.15.0"
+  }
+}
