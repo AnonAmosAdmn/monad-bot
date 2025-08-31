@@ -8,6 +8,6 @@ GUILD_ID=
 
 ROLE_ID=
 
-TOKEN_ADDRESS=
+NFT_CONTRACT_ADDRESS=
 
 RPC_URL=https://testnet-rpc.monad.xyz
