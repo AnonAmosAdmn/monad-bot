@@ -13,9 +13,14 @@ const client = new Client({
 
 // EVM provider
 const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
-const tokenAddress = process.env.TOKEN_ADDRESS;
+const nftContractAddress = process.env.NFT_CONTRACT_ADDRESS;
 const roleId = process.env.ROLE_ID;
-const abi = ["function balanceOf(address) view returns (uint256)"];
+// ERC721 ABI with balanceOf and ownerOf functions
+const abi = [
+  "function balanceOf(address owner) view returns (uint256)",
+  "function ownerOf(uint256 tokenId) view returns (address)",
+  "function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)"
+];
 
 client.once("ready", () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
@@ -43,7 +48,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }
 
     try {
-      const contract = new ethers.Contract(tokenAddress, abi, provider);
+      const contract = new ethers.Contract(nftContractAddress, abi, provider);
+      
+      // Check NFT balance
       const balance = await contract.balanceOf(walletAddress);
 
       if (balance > 0n) {
@@ -72,14 +79,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
         });
       } else {
         await interaction.reply({
-          content: "❌ You do not hold the required token.",
+          content: "❌ You don't own any NFTs from this collection.",
           flags: 64
         });
       }
     } catch (err) {
       console.error(err);
       await interaction.reply({
-        content: "⚠️ Error verifying token ownership.",
+        content: "⚠️ Error verifying NFT ownership.",
         flags: 64
       });
     }
